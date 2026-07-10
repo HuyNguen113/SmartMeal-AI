@@ -1,0 +1,2 @@
+import { Router } from 'express'; import * as c from '../controllers/monAnController.js'; import xacThuc from '../middleware/xacThuc.js'; import phanQuyen from '../middleware/phanQuyen.js';
+const router = Router(); router.route('/').get(c.layDanhSach).post(xacThuc, phanQuyen('nhan_vien', 'quan_tri'), c.taoMon); router.route('/:id').get(c.layChiTiet).put(xacThuc, phanQuyen('nhan_vien', 'quan_tri'), c.capNhatMon).delete(xacThuc, phanQuyen('quan_tri'), c.xoaMon); export default router;
