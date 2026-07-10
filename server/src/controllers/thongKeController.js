@@ -1,0 +1,4 @@
+import DonDat from '../models/DonDat.js';
+import DuBao from '../models/DuBao.js';
+
+export const tongQuan = async (req, res, next) => { try { const start = new Date(); start.setHours(0, 0, 0, 0); const end = new Date(start); end.setDate(end.getDate() + 1); const [donHomNay, duBao] = await Promise.all([DonDat.find({ createdAt: { $gte: start, $lt: end }, trangThai: { $ne: 'da_huy' } }), DuBao.find({ ngay: { $gte: start, $lt: end } })]); const daDat = donHomNay.reduce((n, d) => n + d.cacMon.reduce((s, m) => s + m.soLuong, 0), 0); const doanhThu = donHomNay.reduce((n, d) => n + d.tongTien, 0); const duDoan = duBao.reduce((n, d) => n + d.duDoan, 0); res.json({ thanhCong: true, tongQuan: { soDon: donHomNay.length, daDat, doanhThu, duDoan, deXuatChuanBi: Math.ceil(duDoan * 1.04), saiSoTB: duBao.length ? Math.round(duBao.reduce((n, d) => n + (d.saiSo || 0), 0) / duBao.length * 10) / 10 : 0 } }); } catch (error) { next(error); } };

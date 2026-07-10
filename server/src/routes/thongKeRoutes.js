@@ -1,0 +1,1 @@
+import { Router } from 'express'; import { tongQuan } from '../controllers/thongKeController.js'; import xacThuc from '../middleware/xacThuc.js'; import phanQuyen from '../middleware/phanQuyen.js'; const router = Router(); router.get('/tong-quan', xacThuc, phanQuyen('nhan_vien', 'quan_tri'), tongQuan); export default router;

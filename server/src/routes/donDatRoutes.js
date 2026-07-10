@@ -1,0 +1,2 @@
+import { Router } from 'express'; import * as c from '../controllers/donDatController.js'; import xacThuc from '../middleware/xacThuc.js'; import phanQuyen from '../middleware/phanQuyen.js';
+const router = Router(); router.use(xacThuc); router.route('/').post(phanQuyen('sinh_vien'), c.taoDon).get(c.layDon); router.get('/:id', c.layChiTietDon); router.put('/:id/trang-thai', phanQuyen('nhan_vien', 'quan_tri'), c.capNhatTrangThai); router.put('/:id/huy', phanQuyen('sinh_vien'), c.huyDon); export default router;
