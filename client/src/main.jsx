@@ -2,7 +2,11 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import './styles.css';
 
-const API = 'http://localhost:5000/api';
+// Cấu hình API URL - tự động chọn theo environment
+const API_BASE = import.meta.env.PROD 
+  ? 'https://smartmeal-api.onrender.com'  // Production Backend
+  : 'http://localhost:5000';                 // Development
+const API = `${API_BASE}/api`;
 const fallbackFoods = [
   { _id: '1', tenMon: 'Cơm gà sốt teriyaki', moTa: 'Gà áp chảo, rau củ theo mùa và cơm thơm', gia: 32000, danhMuc: 'com', danhGiaTB: 4.9, thoiGianChuanBi: 12, tags: ['Bán chạy'], hinhAnh: 'https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=700&q=80' },
   { _id: '2', tenMon: 'Bún bò Huế đặc biệt', moTa: 'Nước dùng đậm vị, giò heo và chả cua', gia: 35000, danhMuc: 'bun', danhGiaTB: 4.8, thoiGianChuanBi: 8, tags: ['Đậm vị'], hinhAnh: 'https://images.unsplash.com/photo-1559314809-0d155014e29e?auto=format&fit=crop&w=700&q=80' },
